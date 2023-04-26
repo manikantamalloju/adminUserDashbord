@@ -122,19 +122,163 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-
-
-
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rowValues, setRowValues] = React.useState([]);
+  const [rowValues, setRowValues] = React.useState([
+    {
+      id: 1,
+      user_id: 3,
+      survey_date: "08/04/2023",
+      email: "naidu@gmail.com",
+      status: true,
+    },
+
+    {
+      id: 2,
+      user_id: 3,
+      survey_date: "14/04/2023",
+      email: "mani@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 3,
+      user_id: 3,
+      survey_date: "18/06/2023",
+      email: "manikanta@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 4,
+      user_id: 3,
+      survey_date: "19/04/2023",
+      email: "manikanta@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 5,
+      user_id: 3,
+      survey_date: "19/04/2023",
+      email: "naidu@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 6,
+      user_id: 3,
+      survey_date: "19/04/2023",
+      email: "naidu@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 7,
+      user_id: 3,
+      survey_date: "25/04/2023",
+      email: "galirajapraveenreddy@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 8,
+      user_id: 3,
+      survey_date: "25/04/2023",
+      email: "galirajapraveenreddy@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 9,
+      user_id: 3,
+      survey_date: "25/04/2023",
+      email: "galirajapraveenreddy@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 10,
+      user_id: 3,
+      survey_date: "25/04/2023",
+      email: "galirajapraveenreddy@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 11,
+      user_id: 3,
+      survey_date: "25/04/2023",
+      email: "galirajapraveenreddy@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 12,
+      user_id: 3,
+      survey_date: "25/04/2023",
+      email: "galirajapraveenreddy@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 15,
+      user_id: 3,
+      survey_date: "25/04/2023",
+      email: "galirajapraveenreddy@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 17,
+      user_id: 3,
+      survey_date: "26/04/2023",
+      email: "ram999jayaram@gmail.com",
+      status: false,
+    },
+
+    {
+      id: 20,
+      user_id: 3,
+      survey_date: "26/04/2023",
+      email: "ram999jayaram@gmail.com",
+      status: false,
+    },
+  ]);
   const [addUserOpen, setAddUserOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
+  const [sortOrder, setSortOrder] = React.useState("");
+  const [sortColumn, setSortColumn] = React.useState("");
   console.log(rowValues.length);
   // Avoid a layout jump when reaching the last page with empty rows.
+  const handleSortClick = (column) => {
+    if (sortColumn === column) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortOrder("desc");
+      setSortColumn(column);
+    }
+  };
+
+  const rowValuesSorted = rowValues.sort((a, b) => {
+    const sortOrderVal = sortOrder === "asc" ? 1 : -1;
+    console.log(sortColumn, "sortColumn");
+    switch (sortColumn) {
+      case "id":
+        return (a.id - b.id) * sortOrderVal;
+      case "email":
+        return a.email.localeCompare(b.email) * sortOrderVal;
+      case "date":
+        return new Date(a.survey_date) - new Date(b.survey_date) * sortOrderVal;
+      case "status":
+        return (a.status - b.status) * sortOrderVal;
+      default:
+        return 0;
+    }
+  });
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowValues.length) : 0;
@@ -232,7 +376,12 @@ export default function CustomPaginationActionsTable() {
   };
   React.useEffect(() => {
     getSurveyData();
-  }, [searchValue]);
+  }, [searchValue, sortOrder]);
+  // React.useEffect(() =>{
+
+  // },[sortOrder]);
+  console.log(sortOrder, "order");
+  console.log(rowValuesSorted);
   return (
     <div className="table-testing-container">
       <div className="search-invite-container">
@@ -303,18 +452,80 @@ export default function CustomPaginationActionsTable() {
             <TableHead>
               <TableRow>
                 <StyledTableCell>
-                  <ArrowUpwardIcon />
-                  Id <ArrowDownwardIcon />
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("id");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  Id
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("id");
+                      setSortOrder("asc");
+                    }}
+                  />
                 </StyledTableCell>
 
-                <StyledTableCell>Email</StyledTableCell>
-                <StyledTableCell>Date</StyledTableCell>
-                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("email");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  Email
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("email");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
+
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("date");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  Date
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("date");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("status");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  Status
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 10 }}
+                    onClick={() => {
+                      handleSortClick("status");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowValues
-                .sort((a, b) => (a.id > b.id ? -1 : 1))
+              {rowValuesSorted
+
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <StyledTableRow key={row.id}>
@@ -322,7 +533,9 @@ export default function CustomPaginationActionsTable() {
                       {row.id}
                     </StyledTableCell>
                     <StyledTableCell
-                      style={{ width: 100 }}
+                      // ￼sendMail
+                      // ￼sebleCell
+                      style={{ width: 100 ,marginLeft:10,marginRight:20}}
                       component="th"
                       scope="row"
                     >
@@ -385,3 +598,49 @@ export default function CustomPaginationActionsTable() {
     </div>
   );
 }
+// testing data=[
+
+// {id: 1, user_id: 3, survey_date: '08/04/2023', email: 'naidu@gmail.com', status: true}
+//
+//
+// {id: 2, user_id: 3, survey_date: '14/04/2023', email: 'mani@gmail.com', status: false}
+//
+//
+// {id: 3, user_id: 3, survey_date: '18/06/2023', email: 'manikanta@gmail.com', status: false}
+//
+//
+// {id: 4, user_id: 3, survey_date: '19/04/2023', email: 'manikanta@gmail.com', status: false}
+//
+//
+// {id: 5, user_id: 3, survey_date: '19/04/2023', email: 'naidu@gmail.com', status: false}
+//
+//
+// {id: 6, user_id: 3, survey_date: '19/04/2023', email: 'naidu@gmail.com', status: false}
+//
+//
+// {id: 7, user_id: 3, survey_date: '25/04/2023', email: 'galirajapraveenreddy@gmail.com', status: false}
+//
+//
+// {id: 8, user_id: 3, survey_date: '25/04/2023', email: 'galirajapraveenreddy@gmail.com', status: false}
+//
+//
+// {id: 9, user_id: 3, survey_date: '25/04/2023', email: 'galirajapraveenreddy@gmail.com', status: false}
+//
+//
+// {id: 10, user_id: 3, survey_date: '25/04/2023', email: 'galirajapraveenreddy@gmail.com', status: false}
+//
+//
+// {id: 11, user_id: 3, survey_date: '25/04/2023', email: 'galirajapraveenreddy@gmail.com', status: false}
+//
+//
+// {id: 12, user_id: 3, survey_date: '25/04/2023', email: 'galirajapraveenreddy@gmail.com', status: false}
+//
+//
+// {id: 15, user_id: 3, survey_date: '25/04/2023', email: 'galirajapraveenreddy@gmail.com', status: false}
+//
+//
+// {id: 17, user_id: 3, survey_date: '26/04/2023', email: 'ram999jayaram@gmail.com', status: false}
+//
+//
+// {id: 20, user_id: 3, survey_date: '26/04/2023', email: 'ram999jayaram@gmail.com', status: false}
+// ]

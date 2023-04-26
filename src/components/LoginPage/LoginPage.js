@@ -79,7 +79,7 @@ const LoginPage = () => {
           formik.resetForm();
         })
         .catch((e) => {
-          toast.error(" Login Failed", {
+          toast.error(e.response.data.msg, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

@@ -20,6 +20,7 @@ function App() {
       <Route path="/login" exact element={<LoginPage />} />
       <Route path="/signUp" exact element={<SignUpPage />} />
       <Route path="/surveyForm/:surveyId" exact element={<Survey />} /> 
+      
 
       <Route path="/adminhome" element={<AdminHome />} />
       
