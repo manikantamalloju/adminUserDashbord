@@ -38,27 +38,36 @@
     transform: translateX(0);
   }
 }
-
-h1 {
+.heading-signup {
   text-align: center;
   margin-bottom: 5px;
 }
-
-form {
+/* need to remove below */
+/* h1 {
+  text-align: center;
+  margin-bottom: 5px;
+} */
+.signup-form {
   display: flex;
   flex-direction: column;
 }
+/* form {
+  display: flex;
+  flex-direction: column;
+} */
 
 .form-control {
   width: 100%;
   padding-bottom: 10px;
 }
-
-label {
+.label-signup {
   display: block;
 }
-
-input {
+/* need to remve below */
+/* label {
+  display: block;
+} */
+.input-username {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -66,8 +75,31 @@ input {
   font-size: 16px;
   outline: none;
 }
+/* need to remove */
+/* input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+} */
+.signup-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.5s;
+}
+.signup-button:hover {
+  background-color: #3e8e41;
+}
+/* need to remove */
 
-button {
+/* button {
   background-color: #4caf50;
   color: white;
   padding: 10px 20px;
@@ -80,15 +112,23 @@ button {
 
 button:hover {
   background-color: #3e8e41;
-}
-
-p {
+} */
+.signup-para {
   display: block;
   text-align: center;
   font-size: 12px;
   font-family: sans-serif;
   animation: fade-in 1s;
 }
+
+/* remove below */
+/* p {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  font-family: sans-serif;
+  animation: fade-in 1s;
+} */
 
 @keyframes fade-in {
   from {
@@ -127,6 +167,12 @@ p {
 }
 .password-input {
   border: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border: none;
 }
 .password-row {
   border-radius: 5px;
@@ -136,4 +182,14 @@ p {
 }
 label {
   width: 100%;
+}
+.signup-submit-msg {
+  text-align: center;
+  color: red;
+
+  display: block;
+
+  font-size: 12px;
+  font-family: sans-serif;
+  animation: fade-in 1s;
 }

@@ -5,10 +5,17 @@ import AdminTable from "../AdminTable/index";
 import "./index.css";
 import { Box } from "@mui/system";
 import Temp from "../AdminTable/Temp";
-
+import AdminTestingTable from "../AdminTestingTable/AdminTestingTable";
 function Execuites() {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        justifyContent: "space-between",
+      }}
+    >
       <SideBar />
       {/* <h1>Dashboard</h1> */}
       <Box
@@ -19,7 +26,8 @@ function Execuites() {
           justifyContent: "center",
         }}
       >
-        <AdminTable />
+        {/* <AdminTable /> */}
+        <AdminTestingTable />
 
         {/* <Temp /> */}
       </Box>

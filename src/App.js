@@ -1,25 +1,31 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import UserHome from "./components/UserHome/UserHome";
+import AdminHome from "./components/AdminHome";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignUpPage from "./components/SignUpPage/SignUpPage";
-import Dashboard from "./components/Dashboard";
-// import Home from "./components/Home/index";
-//import AdminTable from "./components/AdminTable/index";
-
+import UserProtectedRoute from "./components/UserProtectedRoute";
+import Cookies from "js-cookie";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import Execuites from "./components/Execuites";
-import Email from "./components/Email";
+import Users from "./components/Users/Users";
+import TestingTable from "./components/TestingTable"
+import AdminTestingTable from "./components/AdminTestingTable/AdminTestingTable"
 function App() {
+  const role = Cookies.get("role");
+  console.log(role, "showing role");
   return (
-    <>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signUp" element={<SignUpPage />} />
+    <Routes>
+      <Route path="/login" exact element={<LoginPage />} />
+      <Route path="/signUp" exact element={<SignUpPage />} />
 
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/executies" element={<Execuites />} />
-        <Route path="/email" element={<Email />} />
-      </Routes>
-    </>
+      <Route path="/adminhome" element={<AdminHome />} />
+      
+      <Route path="/executies" element={<Execuites />} />
+      <Route path="/userhome" element={<UserHome />} />
+      <Route path="/users" element={<Users />} />
+      <Route path="/admintestingtable" element={<AdminTestingTable/>}/>
+    </Routes>
   );
 }
 
