@@ -16,7 +16,7 @@ const LoginPage = () => {
   const togglePasswordVisibility = () => {
     setshowPassword(!showPassword);
   };
- 
+
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -67,12 +67,12 @@ const LoginPage = () => {
             // use dealy of navigation /UserHome /AdminHome
             setTimeout(() => {
               //console.log( user_details.role === "admin",role,"RaviSabbi");
-                  const role = Cookies.get("role");
-               
-                role === "admin"
-                  ? navigate("/AdminHome", { replace: true })
-                  : navigate("/UserHome", { replace: true });
-              
+              const role = Cookies.get("role");
+              console.log(role);
+
+              role === "admin"
+                ? navigate("/AdminHome", { replace: true })
+                : navigate("/UserHome", { replace: true });
             }, 400);
             // navigate("/", { replace: true });
           }
@@ -96,7 +96,6 @@ const LoginPage = () => {
   });
   const jwtToken = Cookies.get("jwtToken");
   if (jwtToken !== undefined) {
-    
     navigate("/login", { replace: true });
   }
   //console.log(formik.values);

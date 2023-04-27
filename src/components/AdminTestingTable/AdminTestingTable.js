@@ -132,7 +132,38 @@ export default function CustomPaginationActionsTable() {
   const [emailError, setEmailError] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
   const [enable, setEnable] = React.useState(false);
-  const [a, setA] = React.useState(0);
+
+  const [sortOrder, setSortOrder] = React.useState("");
+  const [sortColumn, setSortColumn] = React.useState("");
+
+  const handleSortClick = (column) => {
+    if (sortColumn === column) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortOrder("desc");
+      setSortColumn(column);
+    }
+  };
+  const rowValuesSorted = rowValues.sort((a, b) => {
+    const sortOrderVal = sortOrder === "asc" ? 1 : -1;
+    console.log(sortColumn, "sortColumn");
+    switch (sortColumn) {
+      case "id":
+        return (a.id - b.id) * sortOrderVal;
+      case "email":
+        return a.email.localeCompare(b.email) * sortOrderVal;
+      case "firstname":
+        return a.firstname.localeCompare(b.firstname) * sortOrderVal;
+      case "lastname":
+        return a.lastname.localeCompare(b.lastname) * sortOrderVal;
+      case "username":
+        return a.username.localeCompare(b.username) * sortOrderVal;
+      case "action":
+        return (a.action - b.action) * sortOrderVal;
+      default:
+        return 0;
+    }
+  });
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -321,21 +352,113 @@ export default function CustomPaginationActionsTable() {
             <TableHead>
               <TableRow>
                 <StyledTableCell>
-                  <ArrowUpwardIcon sx={{ fontSize: 15 }} />
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("id");
+                      setSortOrder("desc");
+                    }}
+                  />
                   ID
-                  <ArrowDownwardIcon sx={{ fontSize: 15 }} />
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("id");
+                      setSortOrder("asc");
+                    }}
+                  />
                 </StyledTableCell>
 
-                <StyledTableCell>FirstName</StyledTableCell>
-                <StyledTableCell>LastName</StyledTableCell>
-                <StyledTableCell>UserName</StyledTableCell>
-                <StyledTableCell>Email</StyledTableCell>
-                <StyledTableCell>Action</StyledTableCell>
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("firstname");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  FirstName
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("firstname");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("lastname");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  LastName
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("lastname");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("username");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  UserName
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("username");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("email");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  Email{" "}
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("email");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <ArrowUpwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("action");
+                      setSortOrder("desc");
+                    }}
+                  />
+                  Action{" "}
+                  <ArrowDownwardIcon
+                    sx={{ fontSize: 15 }}
+                    onClick={() => {
+                      handleSortClick("action");
+                      setSortOrder("asc");
+                    }}
+                  />
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowValues
-                .sort((a, b) => (a.id < b.id ? -1 : 1))
+              {rowValuesSorted
+
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <StyledTableRow key={row.id}>

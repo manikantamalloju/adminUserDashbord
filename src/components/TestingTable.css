@@ -1,12 +1,10 @@
 .table-testing-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 70vw;
+  width: 90vw;
+  padding: 20px;
+  margin-left: 15%;
+  margin-top: 10%;
 }
 .search-invite-container {
-  margin-bottom: 10px;
-  width: 100%;
+  margin-bottom: 30px;
+  width: 95%;
 }

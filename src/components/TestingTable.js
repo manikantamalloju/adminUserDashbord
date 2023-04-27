@@ -125,135 +125,18 @@ TablePaginationActions.propTypes = {
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rowValues, setRowValues] = React.useState([
-    {
-      id: 1,
-      user_id: 3,
-      survey_date: "08/04/2023",
-      email: "naidu@gmail.com",
-      status: true,
-    },
-
-    {
-      id: 2,
-      user_id: 3,
-      survey_date: "14/04/2023",
-      email: "mani@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 3,
-      user_id: 3,
-      survey_date: "18/06/2023",
-      email: "manikanta@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 4,
-      user_id: 3,
-      survey_date: "19/04/2023",
-      email: "manikanta@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 5,
-      user_id: 3,
-      survey_date: "19/04/2023",
-      email: "naidu@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 6,
-      user_id: 3,
-      survey_date: "19/04/2023",
-      email: "naidu@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 7,
-      user_id: 3,
-      survey_date: "25/04/2023",
-      email: "galirajapraveenreddy@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 8,
-      user_id: 3,
-      survey_date: "25/04/2023",
-      email: "galirajapraveenreddy@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 9,
-      user_id: 3,
-      survey_date: "25/04/2023",
-      email: "galirajapraveenreddy@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 10,
-      user_id: 3,
-      survey_date: "25/04/2023",
-      email: "galirajapraveenreddy@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 11,
-      user_id: 3,
-      survey_date: "25/04/2023",
-      email: "galirajapraveenreddy@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 12,
-      user_id: 3,
-      survey_date: "25/04/2023",
-      email: "galirajapraveenreddy@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 15,
-      user_id: 3,
-      survey_date: "25/04/2023",
-      email: "galirajapraveenreddy@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 17,
-      user_id: 3,
-      survey_date: "26/04/2023",
-      email: "ram999jayaram@gmail.com",
-      status: false,
-    },
-
-    {
-      id: 20,
-      user_id: 3,
-      survey_date: "26/04/2023",
-      email: "ram999jayaram@gmail.com",
-      status: false,
-    },
-  ]);
+  const [rowValues, setRowValues] = React.useState([]);
   const [addUserOpen, setAddUserOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
   const [sortOrder, setSortOrder] = React.useState("");
   const [sortColumn, setSortColumn] = React.useState("");
+
   console.log(rowValues.length);
   // Avoid a layout jump when reaching the last page with empty rows.
+
+  // sortlogic
   const handleSortClick = (column) => {
     if (sortColumn === column) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -280,6 +163,7 @@ export default function CustomPaginationActionsTable() {
     }
   });
 
+  // pagination
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowValues.length) : 0;
 
@@ -301,6 +185,7 @@ export default function CustomPaginationActionsTable() {
     setEmailError("");
   };
 
+  // email validation and  mial sending
   const storeEmail = (event) => {
     setEmail(event.target.value);
     const emailRegex = /\S+@\S+\.\S+/;
@@ -363,6 +248,7 @@ export default function CustomPaginationActionsTable() {
   const getSurveyData = () => {
     axios
       // add id here
+
       .get(url.API + `userSurveys/${3}?search_result=` + searchValue)
       .then((response) => {
         if (response.statusText === "OK") {
@@ -376,7 +262,7 @@ export default function CustomPaginationActionsTable() {
   };
   React.useEffect(() => {
     getSurveyData();
-  }, [searchValue, sortOrder]);
+  }, [searchValue]);
   // React.useEffect(() =>{
 
   // },[sortOrder]);
@@ -453,7 +339,7 @@ export default function CustomPaginationActionsTable() {
               <TableRow>
                 <StyledTableCell>
                   <ArrowUpwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("id");
                       setSortOrder("desc");
@@ -461,7 +347,7 @@ export default function CustomPaginationActionsTable() {
                   />
                   Id
                   <ArrowDownwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("id");
                       setSortOrder("asc");
@@ -471,7 +357,7 @@ export default function CustomPaginationActionsTable() {
 
                 <StyledTableCell>
                   <ArrowUpwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("email");
                       setSortOrder("desc");
@@ -479,7 +365,7 @@ export default function CustomPaginationActionsTable() {
                   />
                   Email
                   <ArrowDownwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("email");
                       setSortOrder("asc");
@@ -489,7 +375,7 @@ export default function CustomPaginationActionsTable() {
 
                 <StyledTableCell>
                   <ArrowUpwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("date");
                       setSortOrder("desc");
@@ -497,7 +383,7 @@ export default function CustomPaginationActionsTable() {
                   />
                   Date
                   <ArrowDownwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("date");
                       setSortOrder("asc");
@@ -506,7 +392,7 @@ export default function CustomPaginationActionsTable() {
                 </StyledTableCell>
                 <StyledTableCell>
                   <ArrowUpwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("status");
                       setSortOrder("desc");
@@ -514,7 +400,7 @@ export default function CustomPaginationActionsTable() {
                   />
                   Status
                   <ArrowDownwardIcon
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: 15 }}
                     onClick={() => {
                       handleSortClick("status");
                       setSortOrder("asc");
@@ -535,7 +421,7 @@ export default function CustomPaginationActionsTable() {
                     <StyledTableCell
                       // ￼sendMail
                       // ￼sebleCell
-                      style={{ width: 100 ,marginLeft:10,marginRight:20}}
+                      style={{ width: 100, marginLeft: 10, marginRight: 20 }}
                       component="th"
                       scope="row"
                     >
